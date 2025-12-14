@@ -1,0 +1,23 @@
+dirs := input.split(', ').map [&.0, +&[1..]] as const
+player := x: 0, y: 0, dir: 0
+
+visited := new Set
+firstVisited: Point | null .= null
+
+for [dir, steps] of dirs
+  player.dir += dir is 'R' ? 1 : -1
+  player.dir %%= 4
+
+  for _ of [0...steps]
+    player.x += 1 if player.dir is 1
+    player.x -= 1 if player.dir is 3
+    player.y += 1 if player.dir is 2
+    player.y -= 1 if player.dir is 0
+
+    pointKey := `${player.x},${player.y}`
+    if firstVisited is null and visited.has pointKey
+      firstVisited = x: player.x, y: player.y
+    visited.add pointKey
+
+log getManhattanDistance player
+log getManhattanDistance firstVisited!
