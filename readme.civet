@@ -1,10 +1,12 @@
 { Glob, file, write } from bun
 
-readme .= '# Advent of Code 2025
+year := import.meta.env.YEAR
 
-My solutions to the [AoC 2025](https://adventofcode.com/2025) challenges written in [Civet](https://civet.dev).
+readme .= `# Advent of Code ${year}
 
-'
+My solutions to the [AoC ${year}](https://adventofcode.com/${year}) challenges written in [Civet](https://civet.dev).
+
+`
 glob := new Glob './src/[0-9]*'
 
 for path of glob.scanSync({ -onlyFiles })

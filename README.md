@@ -1,6 +1,6 @@
-# Advent of Code 2025
+# Advent of Code 2016
 
-My solutions to the [AoC 2025](https://adventofcode.com/2025) challenges written in [Civet](https://civet.dev).
+My solutions to the [AoC 2016](https://adventofcode.com/2016) challenges written in [Civet](https://civet.dev).
 
 ## Day 1: No Time for a Taxicab ⭐⭐
 
