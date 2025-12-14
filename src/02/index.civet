@@ -1,0 +1,25 @@
+pad1 := ['123', '456', '789']
+pad2 := ['  1', ' 234', '56789', ' ABC', '  D']
+current1 := x: 1, y: 1
+current2 := x: 0, y: 2
+code1 .= ''
+code2 .= ''
+
+for line of getLines input
+  for dir of line
+    if dir is 'U'
+      current2.y -= 1 if pad2[current2.y - 1]?[current2.x]?trim()
+      current1.y -= 1 if pad1[current1.y - 1]?[current1.x]?trim()
+    if dir is 'D'
+      current2.y += 1 if pad2[current2.y + 1]?[current2.x]?trim()
+      current1.y += 1 if pad1[current1.y + 1]?[current1.x]?trim()
+    if dir is 'L'
+      current2.x -= 1 if pad2[current2.y][current2.x - 1]?trim()
+      current1.x -= 1 if pad1[current1.y][current1.x - 1]?trim()
+    if dir is 'R'
+      current2.x += 1 if pad2[current2.y][current2.x + 1]?trim()
+      current1.x += 1 if pad1[current1.y][current1.x + 1]?trim()
+  code1 += pad1[current1.y][current1.x]
+  code2 += pad2[current2.y][current2.x]
+
+log code1, code2
