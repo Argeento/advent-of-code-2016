@@ -1,0 +1,23 @@
+rooms := getLines input
+
+moveLetter := (letter: string, number: number) =>
+  charCode := (letter.charCodeAt(0) - 97 + number) %% 26
+  String.fromCharCode charCode + 97
+
+log sum for room of rooms
+  checksum := room[-6...-1]
+  sectorId := int room[-10...-7]
+  name := room[...-11]
+  letterCount: Record<string, number> := {}
+
+  for letter of name.replaceAll '-', ''
+    (letterCount[letter] ?= 0) += 1
+
+  calculatedChecksum := entries(letterCount)
+    .sort((a, b) => b.1 - a.1 or a.0.localeCompare b.0)
+    .map(&.0).join ''
+
+  if calculatedChecksum.startsWith checksum
+    decrypted := [...name].map(moveLetter ., sectorId).join ''
+    log sectorId if decrypted.includes 'northpole'
+    sectorId
