@@ -1,0 +1,16 @@
+ips := getLines input
+
+hasAbba := (str: string) => /(.)(?!\1)(.)\2\1/.test str
+getAbas := (str: string) => [...str.matchAll /(?=((.)(?!\2)(.)\2))/g].map &.1
+
+tls .= 0
+ssl .= 0
+
+for ip of ips
+  seq := ip.split /\[.*?\]/
+  hyper := [...ip.matchAll /\[(.*?)\]/g].map &.1
+
+  tls++ if seq.some(hasAbba) and hyper.every negate hasAbba
+  ssl++ if seq.flatMap(getAbas).some (aba) => hyper.some .includes aba.1 + aba.0 + aba.1
+
+log tls, ssl
