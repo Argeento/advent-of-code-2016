@@ -59,3 +59,79 @@ for line of getLines input
 
 log code1, code2
 ```
+
+
+```ts
+triangles := getLines(input).map toNumbers
+isValidTriangle := ([a, b, c]: number[]) => a + b > c
+log triangles.map([...&].sort asc).filter(isValidTriangle)#
+rotated := triangles |> rotateMatrixLeft |> flatten |> toChunks 3 |> .map .sort asc
+log rotated.filter(isValidTriangle)#
+```
+
+
+```ts
+rooms := getLines input
+
+moveLetter := (letter: string, number: number) =>
+  charCode := (letter.charCodeAt(0) - 97 + number) %% 26
+  String.fromCharCode charCode + 97
+
+log sum for room of rooms
+  sectorId := int room[-10...-7]
+  name := room[...-11].replaceAll '-', ''
+  checksum := countChars(name).map(.char).join ''
+
+  if checksum.startsWith room[-6...-1]
+    decrypted := [...name].map(moveLetter ., sectorId).join ''
+    log sectorId if decrypted.includes 'northpole'
+    sectorId
+```
+
+
+```ts
+md5 from md5
+
+passwordA .= ''
+passwordB := new Array(8).fill ''
+
+for i of [0..]
+  hash := md5 `${input.trim()}${i}`
+  continue if not hash.startsWith '00000'
+  passwordA += hash.5 if passwordA# < 8
+
+  pos := +hash.5
+  if pos >= 0 and pos < 8 and passwordB[pos] is ''
+    passwordB[pos] = hash.6   
+    break if passwordB.every & is not ''
+
+log passwordA, passwordB.join ''
+```
+
+
+```ts
+cols := getLines(input).map .split '' |> rotateMatrixRight
+
+log cols.map(countChars(.).0.char).join ''
+log cols.map(countChars(.).-1.char).join ''
+```
+
+
+```ts
+ips := getLines input
+
+hasAbba := (str: string) => /(.)(?!\1)(.)\2\1/.test str
+getAbas := (str: string) => [...str.matchAll /(?=((.)(?!\2)(.)\2))/g].map &.1
+
+tls .= 0
+ssl .= 0
+
+for ip of ips
+  seq := ip.split /\[.*?\]/
+  hyper := [...ip.matchAll /\[(.*?)\]/g].map &.1
+
+  tls++ if seq.some(hasAbba) and hyper.every negate hasAbba
+  ssl++ if seq.flatMap(getAbas).some (aba) => hyper.some .includes aba.1 + aba.0 + aba.1
+
+log tls, ssl
+```
