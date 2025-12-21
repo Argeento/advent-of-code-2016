@@ -1,0 +1,4 @@
+cols := getLines(input).map .split '' |> rotateMatrixRight
+
+log cols.map(countChars(.).0.char).join ''
+log cols.map(countChars(.).-1.char).join ''

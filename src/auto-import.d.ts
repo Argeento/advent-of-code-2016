@@ -30,11 +30,12 @@ declare global {
   const int: typeof utils.int;
   const float: typeof utils.float;
   const multiplyArr: typeof utils.multiplyArr;
-  const countChars: typeof utils.countChars;
   const abs: typeof utils.abs;
   const sign: typeof utils.sign;
   const toChunks: typeof utils.toChunks;
-  const rotateMatrixLeft: typeof utils.rotateMatrixLeft
+  const rotateMatrixLeft: typeof utils.rotateMatrixLeft;
+  const rotateMatrixRight: typeof utils.rotateMatrixRight;
+  const countChars: typeof utils.countChars
 
   // Lodash
   const templateSettings: typeof lodash.templateSettings;

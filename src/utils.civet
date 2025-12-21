@@ -147,12 +147,6 @@ export function float (nr: string): number
 export function multiplyArr(arr: number[]): number
   arr.reduce (a, b) => a * b
 
-export function countChars(str: string)
-  counter: Record<string, number> := {}
-  for c of str.split ''
-    (counter[c] ?= 0)++
-  counter
-  
 export function abs(nr: number): number
   Math.abs nr
 
@@ -176,3 +170,14 @@ export function rotateMatrixLeft<T>(matrix: T[][]): T[][]
   return [] if !matrix || matrix.# is 0 || matrix.0# is 0
   Array.from { length: matrix.0# }, (_, colIndex) => 
     matrix.map &[&# - 1 - colIndex]
+
+export function rotateMatrixRight<T>(matrix: T[][]): T[][]
+  return [] if !matrix || matrix.# is 0 || matrix.0# is 0
+  Array.from { length: matrix.0# }, (_, colIndex) => 
+    matrix.map((_, rowIndex) => matrix[matrix.# - 1 - rowIndex]![colIndex]!)
+
+export function countChars(str: string | string[])
+  obj := countBy str, &
+  entries(obj)
+    .sort((a, b) => b.1 - a.1 or a.0.localeCompare b.0)
+    .map(toKeys 'char', 'count')
