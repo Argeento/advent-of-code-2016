@@ -1,0 +1,16 @@
+md5 from md5
+
+passwordA .= ''
+passwordB := new Array(8).fill ''
+
+for i of [0..]
+  hash := md5 `${input.trim()}${i}`
+  continue if not hash.startsWith '00000'
+  passwordA += hash.5 if passwordA# < 8
+
+  pos := +hash.5
+  if pos >= 0 and pos < 8 and passwordB[pos] is ''
+    passwordB[pos] = hash.6   
+    break if passwordB.every & is not ''
+
+log passwordA, passwordB.join ''
