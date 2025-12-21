@@ -1,0 +1,5 @@
+triangles := getLines(input).map toNumbers
+isValidTriangle := ([a, b, c]: number[]) => a + b > c
+log triangles.map([...&].sort asc).filter(isValidTriangle)#
+rotated := triangles |> rotateMatrixLeft |> flatten |> toChunks 3 |> .map .sort asc
+log rotated.filter(isValidTriangle)#
