@@ -60,6 +60,7 @@ for line of getLines input
 log code1, code2
 ```
 
+## Day 3: Squares With Three Sides ⭐⭐
 
 ```ts
 triangles := getLines(input).map toNumbers
@@ -69,6 +70,7 @@ rotated := triangles |> rotateMatrixLeft |> flatten |> toChunks 3 |> .map .sort 
 log rotated.filter(isValidTriangle)#
 ```
 
+## Day 4: Security Through Obscurity ⭐⭐
 
 ```ts
 rooms := getLines input
@@ -88,6 +90,7 @@ log sum for room of rooms
     sectorId
 ```
 
+## Day 5: How About a Nice Game of Chess? ⭐⭐
 
 ```ts
 md5 from md5
@@ -108,6 +111,7 @@ for i of [0..]
 log passwordA, passwordB.join ''
 ```
 
+## Day 6: Signals and Noise ⭐⭐
 
 ```ts
 cols := getLines(input).map .split '' |> rotateMatrixRight
@@ -116,6 +120,7 @@ log cols.map(countChars(.).0.char).join ''
 log cols.map(countChars(.).-1.char).join ''
 ```
 
+## Day 7: Internet Protocol Version 7 ⭐⭐
 
 ```ts
 ips := getLines input
