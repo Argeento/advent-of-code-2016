@@ -1,0 +1,17 @@
+file .= input
+currentIndex .= -Infinity
+repeats := map input, +/[A-Z]/.test .
+
+for marker of input.matchAll /\(\d+x\d+\)/g
+  [length, times] := toNumbers marker.0
+  index := marker.index + marker.0#
+
+  if marker.index >= currentIndex
+    repeated := file[index...index + length].repeat times
+    file = file[...marker.index] + repeated + file[index + length...]
+    currentIndex = index + length
+  
+  for i of [index...index + length]
+    repeats[i] *= times
+
+log file#, sum repeats
