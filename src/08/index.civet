@@ -1,0 +1,22 @@
+screen := createArray 6, 50, '.'
+rotate := (line: string[], move: number) =>
+  line[-move..] ++ line[...-move]
+
+for operation of getLines input
+  if operation.startsWith 'rect'
+    [width, height] := toNumbers operation
+    for y of [0...height]
+      for x of [0...width]
+        screen[y][x] = '#'
+ 
+  if operation.startsWith 'rotate column'
+    [column, move] := toNumbers operation
+    newColumn := rotate getColumn(screen, column), move
+    screen.forEach (row, i) => row[column] = newColumn[i]
+
+  if operation.startsWith 'rotate row'
+    [row, move] := toNumbers operation
+    screen[row] = rotate screen[row], move
+
+log screen.flat().filter(& is '#')#
+printArray screen
