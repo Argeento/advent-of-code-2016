@@ -189,3 +189,36 @@ for marker of input.matchAll /\(\d+x\d+\)/g
 
 log file#, sum repeats
 ```
+
+## Day 10: Balance Bots ⭐⭐
+
+```ts
+instructions := getLines input
+inputs := instructions.filter .startsWith 'value'
+rules := instructions.filter .startsWith 'bot'
+
+bots: Record<number, number[]> := {}
+outputs: Record<number, number[]> := {}
+
+for input of inputs
+  [value, bot] := toNumbers input
+  (bots[bot] ?= []).push value
+
+until values(bots).every .# is 0
+  for rule of rules
+    [bot, lowDest, highDest] := toNumbers rule
+    continue if bots[bot]?# is not 2
+
+    [low, high] := bots[bot].sort asc
+    log bot if low is 17 and high is 61
+
+    bots[bot] = []
+    'low to bot' is in rule
+      ? (bots[lowDest] ?= []).push low
+      : (outputs[lowDest] ?= []).push low
+    'high to bot' is in rule
+      ? (bots[highDest] ?= []).push high
+      : (outputs[highDest] ?= []).push high
+
+log outputs.0.0 * outputs.1.0 * outputs.2.0
+```
