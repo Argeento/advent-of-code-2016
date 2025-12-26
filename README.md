@@ -222,3 +222,30 @@ until values(bots).every .# is 0
 
 log outputs.0.0 * outputs.1.0 * outputs.2.0
 ```
+
+## Day 12: Clock Signal ⭐⭐
+
+```ts
+instructions := getLines input
+
+function execute(cRegister: number)
+  registers: Record<string, number> :=
+    a: 0
+    b: 0
+    c: cRegister
+    d: 0
+
+  getValue := (x: string) => /\d/.test(x) ? int x : registers[x]
+
+  for i .= 0; i < instructions#; i++
+    [command, x, y] := instructions[i].split ' '
+    switch command
+      'cpy' registers[y] = getValue x
+      'inc' registers[x] += 1
+      'dec' registers[x] -= 1
+      'jnz' i += -1 + int y if getValue x
+
+  return registers
+
+log execute(0).a, execute(1).a
+```
