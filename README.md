@@ -249,3 +249,40 @@ function execute(cRegister: number)
 
 log execute(0).a, execute(1).a
 ```
+
+## Day 13: A Maze of Twisty Little Cubicles ⭐⭐
+
+```ts
+UndirectedGraph from graphology
+{ bidirectional } from graphology-shortest-path;
+
+isWall := (x: number, y: number) =>
+  nr := x*x + 3*x + 2*x*y + y + y*y + int input
+  [...nr.toString 2].filter(+&)# % 2
+
+graph := new UndirectedGraph
+
+for y of [0...50]
+  for x of [0...50]
+    continue if isWall x, y
+    graph.mergeNode `${x},${y}`
+    neighbors := []
+      [x+1, y]
+      [x-1, y]
+      [x, y+1]
+      [x, y-1]
+
+    for [nx, ny] of neighbors
+      continue if isWall nx, ny
+      graph.mergeNode `${nx},${ny}`
+      graph.mergeEdge `${x},${y}`, `${nx},${ny}`
+
+log bidirectional(graph, '1,1', '31,39')!length - 1
+
+log sum flatten for y of [0...50]
+  for x of [0...50]
+    continue if isWall x, y
+    try 
+      path := bidirectional graph, '1,1', `${x},${y}`
+      1 if path!length - 1 <= 50
+```
