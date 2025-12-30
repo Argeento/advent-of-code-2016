@@ -286,3 +286,28 @@ log sum flatten for y of [0...50]
       path := bidirectional graph, '1,1', `${x},${y}`
       1 if path!length - 1 <= 50
 ```
+
+## Day 14: One-Time Pad ⭐⭐
+
+```ts
+md5 from md5
+
+getHash := memoize md5 `${input}${.}`
+
+stretch := memoize (i: number) =>
+  hash .= getHash i
+  hash = md5 hash for [0...2016]
+  hash
+
+findKey := (generator: (i: number) => string) =>
+  keys .= 0
+  for i of [0..]
+    if match := generator(i).match /(.)\1\1/
+      for j of [i<..i + 1000]
+        if match.1.repeat(5) is in generator j
+          return i if ++keys is 64
+          break
+
+log findKey getHash
+log findKey stretch
+```
